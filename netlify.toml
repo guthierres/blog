@@ -8,17 +8,5 @@
 [build.environment]
   NEXT_USE_NETLIFY_EDGE = "true"
 
-[context.production]
-  command = "npm run build"
-
-[context.deploy-preview]
-  command = "npm run build"
-
-[context.branch-deploy]
-  command = "npm run build"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Removemos a regra de redirecionamento incorreta
 
