@@ -3,28 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Post {
-  id         String   @id @default(cuid())
-  title      String
-  slug       String   @unique
-  excerpt    String
-  content    String
-  coverImage String?
-  published  Boolean  @default(false)
-  createdAt  String
-}
-
-model SiteConfig {
-  id       String @id @default(cuid())
-  title    String
-  logo     String?
-  showLogo Boolean @default(false)
-  
-  sidebar Json
-  footer  Json
-}
+// Define your models here
 
