@@ -5,8 +5,8 @@ interface Post {
   id: string
   title: string
   slug: string
-  views: number
-  likes: number
+  views?: number
+  likes?: number
 }
 
 interface PopularPostsProps {
@@ -24,10 +24,11 @@ export default function PopularPosts({ mostViewed, mostLiked }: PopularPostsProp
         <CardContent>
           <ul className="space-y-2">
             {mostViewed.map((post) => (
-              <li key={post.id}>
+              <li key={post.id} className="flex justify-between items-center">
                 <Link href={`/posts/${post.slug}`} className="hover:underline">
-                  {post.title} ({post.views} visualizações)
+                  {post.title}
                 </Link>
+                <span className="text-sm text-muted-foreground">{post.views} visualizações</span>
               </li>
             ))}
           </ul>
@@ -41,10 +42,11 @@ export default function PopularPosts({ mostViewed, mostLiked }: PopularPostsProp
         <CardContent>
           <ul className="space-y-2">
             {mostLiked.map((post) => (
-              <li key={post.id}>
+              <li key={post.id} className="flex justify-between items-center">
                 <Link href={`/posts/${post.slug}`} className="hover:underline">
-                  {post.title} ({post.likes} curtidas)
+                  {post.title}
                 </Link>
+                <span className="text-sm text-muted-foreground">{post.likes} curtidas</span>
               </li>
             ))}
           </ul>
