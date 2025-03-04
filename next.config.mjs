@@ -4,6 +4,7 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  // Adicione aqui outras configurações necessárias para o seu projeto
 }
 
 module.exports = nextConfig
