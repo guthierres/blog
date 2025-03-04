@@ -1,5 +1,3 @@
-"use server"
-
 import { db } from "@/lib/db"
 
 export async function getPosts() {
@@ -7,6 +5,15 @@ export async function getPosts() {
     const posts = await db.post.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      take: 10,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        coverImage: true,
+        createdAt: true,
       },
     })
 
@@ -17,33 +24,47 @@ export async function getPosts() {
   }
 }
 
-export async function getPostById(id: string) {
+export async function getMostViewedPosts() {
   try {
-    const post = await db.post.findUnique({
-      where: {
-        id,
+    const posts = await db.post.findMany({
+      orderBy: {
+        views: "desc",
+      },
+      take: 5,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        views: true,
       },
     })
 
-    return post
+    return posts
   } catch (error) {
-    console.error(`Erro ao buscar post com ID ${id}:`, error)
-    return null
+    console.error("Erro ao buscar posts mais vistos:", error)
+    return []
   }
 }
 
-export async function getPostBySlug(slug: string) {
+export async function getMostLikedPosts() {
   try {
-    const post = await db.post.findUnique({
-      where: {
-        slug,
+    const posts = await db.post.findMany({
+      orderBy: {
+        likes: "desc",
+      },
+      take: 5,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        likes: true,
       },
     })
 
-    return post
+    return posts
   } catch (error) {
-    console.error(`Erro ao buscar post com slug ${slug}:`, error)
-    return null
+    console.error("Erro ao buscar posts mais curtidos:", error)
+    return []
   }
 }
 
